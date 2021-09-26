@@ -1,4 +1,6 @@
 import json
+import string
+
 import numpy as np
 import os
 import email
@@ -21,7 +23,20 @@ if __name__ == '__main__':
     # len(os.listdir(tr_d)) finds length of tr_d
     with open(tr_d + "/TRAIN_1.eml", 'r') as inRead:
         parsed = email.message_from_file(inRead)
-    print(parsed['subject'])
+    title = parsed['subject']
+    for char in string.punctuation:
+        title = title.replace(char, '')
+
+    """
+    Dict order:
+    Word
+    >Safe Count
+    >Spam Count
+    >Total Count
+    >Safe Rate
+    >Spam Rate
+    """
+
 
     # # Training Label Retrieval
     # with open('spam-mail.tr.label', 'r') as labelRead:
